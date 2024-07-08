@@ -1,0 +1,132 @@
+ public static (int first, int second) Function(List<int> arr, int target)
+    {
+        for (int i = 0; i < arr.Count - 1; i++)
+        {
+            for (int j = i + 1; j < arr.Count; j++)
+            {
+                if (arr[i] + arr[j] == target)
+                {
+                    return (arr[i], arr[j]);
+                }
+            }
+        }
+
+        return (-404, -404);
+    }
+-----------------------------------------------------------------------------------------------------
+    public static bool IsPalindrome(int num)
+    {
+
+
+        int reversedNum = 0;
+        int tmp = num;
+
+        while (tmp > 0)
+        {
+            int digit = tmp % 10;
+            reversedNum = reversedNum * 10 + digit;
+            tmp /= 10;
+        }
+
+        return num == reversedNum;
+    }
+ -------------------------------------------------------------------------------------------------------  
+      public static (int first, int second) Function(List<int> arr, int target)
+  {
+      for (int i = 0; i < arr.Count - 1; i++)
+      {
+          for (int j = i + 1; j < arr.Count; j++)
+          {
+              if (arr[i] + arr[j] == target)
+              {
+                  return (arr[i], arr[j]);
+              }
+          }
+      }
+
+      return (-404, -404);
+  }
+
+  public static bool IsPalindrome(int num)
+  {
+
+
+      int reversedNum = 0;
+      int tmp = num;
+
+      while (tmp > 0)
+      {
+          int digit = tmp % 10;
+          reversedNum = reversedNum * 10 + digit;
+          tmp /= 10;
+      }
+
+      return num == reversedNum;
+  }
+
+  public static int isPair(int index, string str)
+  {
+      char pair = ' ';
+      if (str[index] == '(') pair = ')';
+      else if (str[index] == '[') pair = ']';
+      else if (str[index] == '{') pair = '}';
+      for (int i = index + 1; i < str.Length; i++)
+      {
+          if ((char)str[i] == pair)
+          {
+              return i;
+          }
+      }
+      return -1;
+  }
+
+  public static bool isDyzhkyOpen(char c)
+  {
+      return (c == '(' || c == '[' || c == '{');
+  }
+  public static bool isDyzhkyClose(char c)
+  {
+      return (c == ')' || c == ']' || c == '}');
+  }
+  public static bool isDuzhkyOpenClose(string str)
+  {
+      string copyStr = str;
+      for (int i = 0; i < copyStr.Length; i++)
+      {
+          if (isDyzhkyClose(copyStr[i])) return false;//перев≥р€ю чи на початку дужка закрита
+          if (isDyzhkyOpen(copyStr[i])) //перев≥р€ю чи Ї в≥дкрита дужка
+          {
+              int startI = i;
+              int endI = isPair(i, copyStr);  //€кщо знайдено закриваючу дужку , то повертаЇтьс€ ≥ндекс ц≥Їњ дужки в масив≥ 
+              if (endI == -1) return false;  // €кщо н≥ - то повертаЇтьс€ -1
+              string newStr = copyStr.Remove(startI, 1); //видал€ю знайдун≥ дужки дл€ подальшого пошуку
+              newStr = newStr.Remove(endI - 1, 1);
+              copyStr = newStr;
+              i--;
+          }
+      }
+      return true;
+  }
+ 
+
+  public static bool isDuzhkyOpenCloseMathVariant(string str)
+  {
+      Stack<char> stack = new Stack<char>();
+      for (int i = 0; i < str.Length; i++)
+      {
+          if (isDyzhkyOpen(str[i]))
+              stack.Push(str[i]);
+          else if (isDyzhkyClose(str[i]))
+          {
+              if (stack.Count == 0) return false;
+              char stackChar = stack.Pop();
+              if ((str[i] == ')' && stackChar != '(') ||
+                 (str[i] == ']' && stackChar != '[') ||
+                 (str[i] == '}' && stackChar != '{'))
+                  return false;
+          }
+      }
+      return true;
+  }
+}
+
